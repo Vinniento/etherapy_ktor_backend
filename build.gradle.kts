@@ -26,4 +26,10 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     implementation("io.ktor:ktor-gson:$ktor_version")
 
+    //DB
+    implementation("com.zaxxer:HikariCP:3.2.0")
+    implementation("org.jetbrains.exposed:exposed:0.17.6")
+    implementation("org.postgresql:postgresql:42.1.4")
+
+    
 }
