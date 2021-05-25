@@ -1,0 +1,26 @@
+{
+  "name": "Etherapy - Ktor Deployment to Heroku - Free Dynos",
+  "description": "Etherapy......",
+  "keywords": [
+    "identity",
+    "oauth",
+    "saml",
+    "keycloak",
+    "heroku"
+  ],
+  "stack": "container",
+  "repository": "https://github.com/Vinniento/etherapy_ktor_backend",
+  "logo": "https://www.keycloak.org/resources/images/keycloak_logo_480x108.png",
+  "success_url": "/",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev"
+    }
+  ]
+}
