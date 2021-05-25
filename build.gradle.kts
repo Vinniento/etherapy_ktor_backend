@@ -6,7 +6,10 @@ plugins {
     application
     kotlin("jvm") version "1.5.0"
 }
+tasks.create("stage") {
 
+    dependsOn("installDist")
+}
 group = "fh_campus"
 version = "0.0.1"
 application {
@@ -29,7 +32,7 @@ dependencies {
     //DB
     implementation("com.zaxxer:HikariCP:3.2.0")
     implementation("org.jetbrains.exposed:exposed:0.17.6")
-    implementation("org.postgresql:postgresql:42.1.4")
+    implementation("org.postgresql:postgresql:42.2.2")
 
-    
+
 }

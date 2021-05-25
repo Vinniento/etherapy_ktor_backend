@@ -2,23 +2,23 @@ package fh_campus
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import fh_campus.plugins.*
+import fh_campus.data.DatabaseFactory
+import fh_campus.data.models.Users
+import fh_campus.routes.apiRoutes
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.*
-import io.ktor.response.*
 import io.ktor.routing.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.postgresql.Driver
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module(testing: Boolean = false) {
-    // configureRouting()
-    initDB()
+   //initDB()
+    DatabaseFactory.init()
     install(DefaultHeaders) {
 
     }
@@ -29,25 +29,27 @@ fun Application.module(testing: Boolean = false) {
         }
     }
 
-    routing {
-        get("/") {
-            call.respondText("bladisbla")
-        }
+    install(Routing) {
+
+        apiRoutes()
     }
+
+
 }
 
 fun initDB() {
     Database.connect(hikari())
     transaction {
-
-        //SchemaUtils.create(Tasks)
-
+        SchemaUtils.create(Users)
     }
 
 }
 
-private fun hikari(): HikariDataSource {
+
+fun hikari(): HikariDataSource {
     val config = HikariConfig("/hikari.properties")
+    config.driverClassName = Driver::class.java.name
     config.validate()
+
     return HikariDataSource(config)
 }
